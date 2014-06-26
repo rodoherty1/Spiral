@@ -67,11 +67,11 @@ object DrawSpiral2 {
         def drawNext(spiral: Spiral, p: Point, d: Direction): Spiral = {
             printSpiral(spiral)
 
-            val nextPoint = getNextPoint(spiral, p, d)
+            val (nextPoint, nextDirection) = getNextPoint(spiral, p, d)
             
             nextPoint match {
-                case (None, _) => spiral
-                case (p1, d1) => drawNext(addToSpiral(spiral, p1.head), p1.head, d1)
+                case (None) => spiral
+                case (p1) => drawNext(addToSpiral(spiral, p1.head), p1.head, nextDirection)
             }
         }
         
