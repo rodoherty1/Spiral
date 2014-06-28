@@ -49,7 +49,8 @@ object DrawSpiral2 {
         def isInSpiral(p: Point) = (0 <= p._1) && (p._1 < n) && (0 <= p._2) && (p._2 < n)
             
         def notTooCloseToSelf(spiral: Spiral, p: Point, d:Direction): Boolean = {
-            ???
+            val p1 = movePoint(p, d)
+            Math.abs(p._1 - p1._1) == 1 || Math.abs(p._2 - p1._2) == 1
         }
             
         def isValid (spiral: Spiral, p: Point, d: Direction): Boolean = {
