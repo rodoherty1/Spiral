@@ -46,20 +46,42 @@ object DrawSpiral2 {
     
     def apply(n: Int): Spiral = {
 
-        def isSafe (spiral: Spiral, p: Point, d: Direction, count: Int): Boolean = {
-//    	    if (p._2 -1 < 0) getNextPoint((p._1, p._2, RIGHT))
-//        	    else if (notTooCloseToSelf())
-//        	}
+        def isInSpiral(p: Point) = (0 <= p._1) && (p._1 < n) && (0 <= p._2) && (p._2 < n)
+            
+        def notTooCloseToSelf(spiral: Spiral, p: Point, d:Direction): Boolean = {
             ???
         }
+            
+        def isValid (spiral: Spiral, p: Point, d: Direction): Boolean = {
+            val x = p._1 
+            val y = p._2 
+            
+            isInSpiral(p) && notTooCloseToSelf(spiral, p, d)
+        }
         
-        def movePoint(p: Point, d: Direction): Point = ???
+        
+        def movePoint(p: Point, d: Direction): Point = {
+            val x = p._1 
+            val y = p._2 
+
+            d match {
+                case UP => (x+1, y)
+                case RIGHT => (x, y+1)
+                case DOWN => (x-1, y)
+                case LEFT => (x, y-1)
+            }
+        }
+        
         
         def getNextPoint(spiral: Spiral, p: Point, d: Direction): (Option[Point], Direction) = {
-            
-//        	if (isSafe(spiral, p, d)) movePoint(p, d)
-            ???
-            
+            val p1 = movePoint(p, d);
+        	if (isValid(spiral, p1, d)) (Some(p1), d)
+        	
+        	val d2 = nextDirection(d)
+        	val p2 = movePoint(p, d2)
+        	
+        	if (isValid(spiral, p2, d2)) (Some(p2), d2)
+        	else (None, d)
         }
         
         def addToSpiral(spiral: Spiral, p: Point): Spiral = ???
@@ -67,17 +89,17 @@ object DrawSpiral2 {
         def drawNext(spiral: Spiral, p: Point, d: Direction): Spiral = {
             printSpiral(spiral)
 
-            val (nextPoint, nextDirection) = getNextPoint(spiral, p, d)
+            val (p1, d1) = getNextPoint(spiral, p, d)
             
-            nextPoint match {
+            p1 match {
                 case (None) => spiral
-                case (p1) => drawNext(addToSpiral(spiral, p1.head), p1.head, nextDirection)
+                case (Some(point)) => drawNext(addToSpiral(spiral, point), point, d1)
             }
         }
         
-        val centre = (n/2) + 1
         
-        drawNext(List(List(x)), (centre, centre), UP)
+        
+        drawNext(List(List(x)), (0, 0), UP)
     }
     
 }
