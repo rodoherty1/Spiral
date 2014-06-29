@@ -1,31 +1,38 @@
 package spiral
 
-case class Spiral(spiral: List[List[Char]]) {
+object Spiral {
+    val x = 'x'
+    val o = '.'
+}
+
+case class Spiral(size: Int, s: List[Point]) {
+
+    import spiral.Spiral._
     
-    def size = spiral.length
-
-    def addToSpiral(p: Point): Spiral = ???
-        
-    override def toString(): String = {
-        val sb = new StringBuilder
-        
-        def appendRow (l: List[Char]): StringBuilder = {
-            l match {
-                case (Nil) => sb
-                case (x :: xs) =>
-                    sb += x
-                    sb ++= appendRow(xs)
-            }
-        }
-        
-        def appendRows(rows: List[List[Char]]): StringBuilder = {
-	        rows match {
-	            case (Nil) => sb ++= "\n"
-		        case (xs1 :: xs2) =>
-		                appendRow(xs1) ++= appendRows(xs2)
-		        }
-	        }
-
-        appendRows(spiral).toString
+    def addToSpiral(p: Point): Spiral = {
+        Spiral(size, p :: s)
     }
+    
+    def isInSpiral(p: Point) = (0 <= p.x) && (p.x < size) && (0 <= p.y) && (p.y < size)
+
+        
+//    override def toString(): String = {
+//        def appendRow (l: List[Char]): String = {
+//            l match {
+//                case (Nil) => "\n"
+//                case (x :: xs) =>
+//                    x + appendRow(xs)
+//            }
+//        }
+//        
+//        def appendRows(rows: List[List[Char]]): String = {
+//	        rows match {
+//	            case (Nil) => ""
+//		        case (xs1 :: xs2) =>
+//		                appendRow(xs1) + appendRows(xs2)
+//		        }
+//	        }
+//
+//        appendRows(s)
+//    }
 }
