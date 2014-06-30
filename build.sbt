@@ -1,4 +1,4 @@
-name := "Week 7 - Functional Programming in Scala"
+name := "Draw a ascii Spiral for a given 2D grid of length n"
 
 version := "1.0"
 

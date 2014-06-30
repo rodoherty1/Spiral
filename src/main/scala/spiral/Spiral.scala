@@ -13,8 +13,9 @@ case class Spiral(size: Int, s: List[Point]) {
         Spiral(size, p :: s)
     }
     
-    def isInSpiral(p: Point) = (0 <= p.x) && (p.x < size) && (0 <= p.y) && (p.y < size)
+    def isContainedInGrid(p: Point) = (0 <= p.x) && (p.x < size) && (0 <= p.y) && (p.y < size)
 
+    def contains(p: Point) = s.contains(p)
         
 //    override def toString(): String = {
 //        def appendRow (l: List[Char]): String = {

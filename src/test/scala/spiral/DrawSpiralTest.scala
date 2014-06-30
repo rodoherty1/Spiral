@@ -12,7 +12,7 @@ class DrawSpiralTest extends WordSpec with ShouldMatchers {
     
     "SpiralDraw2" should {
         "draw a spiral for n = 5" ignore {
-            DrawSpiral2(5) should be (List(List(x, o, x, x, x), List(x, o, x, o, x), List(x, o, x, o, x), List(x, o, o, o, x), List(x, x, x, x, x)))
+            DrawSpiral2(5) should equal (List(Point(2,2), Point(2,1), Point(2,0), Point(3,0), Point(4,0), Point(4,1), Point(4,2), Point(4,3), Point(4,4), Point(3,4), Point(2,4), Point(1,4), Point(0,4), Point(0,3), Point(0,2), Point(0,1), Point(0,0)))
         }
         
         "return a new point for a given Point p and Direction UP" in {
@@ -28,9 +28,52 @@ class DrawSpiralTest extends WordSpec with ShouldMatchers {
         	DrawSpiral2.nextPoint(Point(2,2), DOWN) should be (Point(2,1))
         }
         
-        "return false if a suggested Point is too close to another Point of the Spiral" in {
-            pending
+        "report that p(0, 1), which is moving UP, is too close to p(0, 2)" in {
+            val s = new Spiral(5, List(Point(0, 0), Point(0, 2)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(0,1), UP) should be (true)
         }
+
+        "report that p(0, 3), which is moving UP, is not too close to p(0, 2)" in {
+            val s = new Spiral(5, List(Point(0, 0), Point(0, 2)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(0,3), UP) should be (false)
+        }
+
+        "report that p(1, 0), which is moving RIGHT, is too close to p(2, 0)" in {
+            val s = new Spiral(5, List(Point(0, 0), Point(2, 0)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(1,0), RIGHT) should be (true)
+        }
+
+        "report that p(0, 3), which is moving RIGHT, is not too close to p(0, 2)" in {
+            val s = new Spiral(5, List(Point(0, 0), Point(2, 0)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(3, 0), RIGHT) should be (false)
+        }
+        
+        "report that p(0, 4), which is moving DOWN, is too close to p(0, 3)" in {
+            val s = new Spiral(5, List(Point(0, 5), Point(0, 3)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(0,4), DOWN) should be (true)
+        }
+
+        "report that p(0, 2), which is moving DOWN, is not too close to p(0, 3)" in {
+            val s = new Spiral(5, List(Point(0, 5), Point(0, 3)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(0, 2), DOWN) should be (false)
+        }
+
+        "report that p(4, 0), which is moving LEFT, is too close to p(3, 0)" in {
+            val s = new Spiral(5, List(Point(3, 0), Point(5, 0)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(4, 0), LEFT) should be (true)
+        }
+
+        "report that p(2, 0), which is moving LEFT, is not too close to p(3, 0)" in {
+            val s = new Spiral(5, List(Point(3, 0), Point(5, 0)))            
+        	DrawSpiral2.tooCloseToSelf(s, Point(2, 0), LEFT) should be (false)
+        }
+        
+        "report that p(0, 1), which is moving UP, may be placed on the grid" in {
+            val s = new Spiral(5, List(Point(0, 0)))
+            DrawSpiral2.isValid(s, Point(0, 1), UP) should be (true)
+            
+        }
+        
     }
     
     

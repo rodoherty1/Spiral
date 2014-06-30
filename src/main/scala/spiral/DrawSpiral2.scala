@@ -18,19 +18,21 @@ object DrawSpiral2 {
 
     import Direction._
 
-
     val x = 'x'
     val o = '.'
  
-    def notTooCloseToSelf(spiral: Spiral, p: Point, d:Direction): Boolean = {
+        
+    def tooCloseToSelf(spiral: Spiral, p: Point, d:Direction): Boolean = {
         val p1 = nextPoint(p, d)
-        Math.abs(p.x - p1.x) == 1 || Math.abs(p.y - p1.y) == 1
+        spiral.contains(p1)
     }
+    
 
     def isValid (s: Spiral, p: Point, d: Direction): Boolean = {
-        s.isInSpiral(p) && notTooCloseToSelf(s, p, d)
+        s.isContainedInGrid(p) && !tooCloseToSelf(s, p, d)
     }
 
+    
     def nextPoint(p: Point, d: Direction): Point = {
         d match {
             case UP => Point(p.x, p.y+1)
@@ -40,18 +42,22 @@ object DrawSpiral2 {
         }
     }
 
+    
     def getNextPoint(s: Spiral, p: Point, d: Direction): (Option[Point], Direction) = {
         val p1 = nextPoint(p, d);
-    	if (isValid(s, p1, d)) (Some(p1), d)
+    	if (isValid(s, p1, d)) {
+    	    (Some(p1), d)
+    	}
+    	else {
+	    	val d2 = nextDirection(d)
+	    	val p2 = nextPoint(p, d2)
+	    	
+	    	if (isValid(s, p2, d2)) (Some(p2), d2)
+	    	else (None, d)
+    	}
     	
-    	val d2 = nextDirection(d)
-    	val p2 = nextPoint(p, d2)
-    	
-    	if (isValid(s, p2, d2)) (Some(p2), d2)
-    	else (None, d)
     }
 
- 
     
     def apply(n: Int): Spiral = {
 	    def drawNext(s: Spiral, p: Point, d: Direction): Spiral = {

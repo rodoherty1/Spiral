@@ -22,14 +22,13 @@ class SpiralTest extends WordSpec with ShouldMatchers {
         
         "return true if a given point is within the grid size of the Spiral" in {
             val s = new Spiral(2, List(Point(0,0), Point(0,1)))
-            s.isInSpiral(Point(0,0)) should be (true)
+            s.isContainedInGrid(Point(0,0)) should be (true)
         }
 
         "return false if a given point is not within the grid size of the Spiral" in {
             val s = new Spiral(2, List(Point(0,0), Point(0,1)))
-            s.isInSpiral(Point(3,3)) should be (false)
+            s.isContainedInGrid(Point(3,3)) should be (false)
         }
-
     }
     
 }
