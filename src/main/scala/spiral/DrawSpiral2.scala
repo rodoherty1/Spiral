@@ -73,4 +73,24 @@ object DrawSpiral2 {
 	    val s = new Spiral(n, List(p))
 	    drawNext(s, p, UP)
     }
+    
+    
+    def toString(spiral: Spiral): String = {
+	    val l = for {
+    	    p <- spiral.s
+    	} yield p.x * p.y
+    	
+    	def getCh(n: Int): String = {
+    	    val ch = if (l.contains(n)) "x" else "."
+    	        
+    	    if (n % spiral.size == 0) {
+    	        ch + "\n"
+    	    } else {
+    	        ch
+    	    }
+    	}
+
+    	List.tabulate(spiral.size ^ 2)(n => getCh(n)) mkString ("")
+    }
+    
 }

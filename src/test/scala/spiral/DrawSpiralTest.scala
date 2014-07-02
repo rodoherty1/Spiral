@@ -11,8 +11,9 @@ class DrawSpiralTest extends WordSpec with ShouldMatchers {
         
     
     "SpiralDraw2" should {
-        "draw a spiral for n = 5" ignore {
-            DrawSpiral2(5) should equal (List(Point(2,2), Point(2,1), Point(2,0), Point(3,0), Point(4,0), Point(4,1), Point(4,2), Point(4,3), Point(4,4), Point(3,4), Point(2,4), Point(1,4), Point(0,4), Point(0,3), Point(0,2), Point(0,1), Point(0,0)))
+        "draw a spiral for n = 5" in {
+//            DrawSpiral2(5) should equal (List(Point(2,2), Point(2,1), Point(2,0), Point(3,0), Point(4,0), Point(4,1), Point(4,2), Point(4,3), Point(4,4), Point(3,4), Point(2,4), Point(1,4), Point(0,4), Point(0,3), Point(0,2), Point(0,1), Point(0,0)))
+            info (DrawSpiral2.toString(DrawSpiral2(5)))
         }
         
         "return a new point for a given Point p and Direction UP" in {
