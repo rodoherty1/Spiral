@@ -4,18 +4,18 @@ object DrawSpiral {
 
     type Spiral = List[List[Char]]
 
-    val x = 'x'
-    val o = 'o'
+    val x = '0'
+    val o = '.'
 
     def drawSpiral (n : Int): Spiral = {
-      val fillA = fill(x,o) _
-      val fillB = fill(o,x) _
+      val fillA = fill(x,o, _:Spiral)
+      val fillB = fill(o,x, _:Spiral)
 
       createSpiral(n, fillA, fillB)
     }
 
     def print(s: Spiral) = {
-      s foreach {println}
+      s map {l => l.mkString("")} mkString("\n")
     }
 
     def createSpiral (
@@ -46,7 +46,7 @@ object DrawSpiral {
      * @param spiral An n x n spiral
      * @return An n+2 x n+2 spiral
      */
-    def fill(p: Char, q:Char)(spiral: Spiral): Spiral = {
+    def fill(p: Char, q:Char, spiral: Spiral): Spiral = {
 
         val n = spiral.length
 
